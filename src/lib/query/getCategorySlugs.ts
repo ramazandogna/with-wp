@@ -1,6 +1,7 @@
 import graphqlRequest from '../graphqlRequest';
+import { GetCategorySlugsParams } from '../../types';
 
-export async function getCategorySlugs(name?: string): Promise<{ slug: string }[] | null> {
+export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): Promise<{ slug: string }[] | null> {
   if (name) {
     const singleQuery = `
       query getCategorySlug($name: ID!) {

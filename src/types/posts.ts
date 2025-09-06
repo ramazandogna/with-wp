@@ -1,3 +1,20 @@
+// getAllPosts fonksiyonu için parametre tipi
+import type { TaxonomyFilter } from './api';
+
+export interface GetAllPostsParams {
+  endCursor?: string;
+  taxonomy?: TaxonomyFilter | null;
+  howMany?: number;
+  search?: string | null;
+}
+
+// getRelatedPosts fonksiyonu için parametre tipi
+export interface GetRelatedPostsParams {
+  endCursor?: string;
+  categorySlugs: string[];
+  howMany?: number;
+  excludeSlug: string;
+}
 // Çoklu post listesi için yapı
 export interface PostNode {
   databaseId: number;

@@ -1,12 +1,12 @@
-import { PostResponse } from '../../types';
+import { PostResponse, GetRelatedPostsParams } from '../../types';
 import graphqlRequest from '../graphqlRequest';
 
-export async function getRelatedPosts(
+export async function getRelatedPosts({
   endCursor = '',
-  categorySlugs: string[],
+  categorySlugs,
   howMany = 2,
-  excludeSlug: string
-): Promise<PostResponse> {
+  excludeSlug
+}: GetRelatedPostsParams): Promise<PostResponse> {
   const query = `
     query getRelatedPosts($endCursor: String, $categories: [String], $exclude: [String]) {
       posts(

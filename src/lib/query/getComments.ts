@@ -1,7 +1,7 @@
 import graphqlRequest from '../graphqlRequest';
-import { PostComments } from '../../types';
+import { PostComments, GetCommentsParams } from '../../types';
 
-export async function getComments(slug: string, startCursor: string = ''): Promise<PostComments> {
+export async function getComments({ slug, startCursor = '' }: GetCommentsParams): Promise<PostComments> {
   const query = `
     query getComments($slug: ID!, $before: String) {
       post(id: $slug, idType: SLUG) {

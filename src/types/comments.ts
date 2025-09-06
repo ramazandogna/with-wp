@@ -1,3 +1,8 @@
+// getComments fonksiyonu için parametre tipi
+export interface GetCommentsParams {
+  slug: string;
+  startCursor?: string;
+}
 // Tekil yorum yapısı
 export interface CommentNode {
   id: string;

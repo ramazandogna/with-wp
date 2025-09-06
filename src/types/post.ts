@@ -1,3 +1,7 @@
+// getPostSlugs fonksiyonu için parametre tipi
+export interface GetPostSlugsParams {
+  slug?: string;
+}
 // Tekil post yapısı
 export interface PostType {
   databaseId: number;

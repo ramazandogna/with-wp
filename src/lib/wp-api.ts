@@ -5,7 +5,18 @@
  * ISR ve SEO optimizasyonu için cache stratejileri içerir.
  */
 
-import { PostType, PostResponse, CategoryDetails, PostComments, TaxonomyFilter } from '../types';
+import {
+  PostType,
+  PostResponse,
+  CategoryDetails,
+  PostComments,
+  TaxonomyFilter,
+  GetAllPostsParams,
+  GetRelatedPostsParams,
+  GetCommentsParams,
+  GetCategorySlugsParams,
+  GetPostSlugsParams
+} from '../types';
 import { API } from '../constants';
 
 // Tüm lib fonksiyonlarını index'ten import et
@@ -26,20 +37,8 @@ import {
  * Tüm postları getir (sayfalama ile)
  * ISR için optimize edilmiş
  */
-export const getPosts = async (options: {
-  cursor?: string;
-  taxonomy?: TaxonomyFilter | null;
-  limit?: number;
-  search?: string | null;
-} = {}): Promise<PostResponse> => {
-  const { 
-    cursor = '', 
-    taxonomy = null, 
-    limit = API.DEFAULT_POSTS_PER_PAGE, 
-    search = null 
-  } = options;
-  
-  return getAllPosts(cursor, taxonomy, limit, search);
+export const getPosts = async (params: GetAllPostsParams = {}): Promise<PostResponse> => {
+  return getAllPosts(params);
 };
 
 /**
@@ -53,21 +52,15 @@ export const getPost = async (slug: string): Promise<PostType> => {
 /**
  * Post slug'larını getir (generateStaticParams için)
  */
-export const getPostPaths = async (slug?: string): Promise<{ slug: string }[] | null> => {
-  return getPostSlugs(slug);
+export const getPostPaths = async (params?: GetPostSlugsParams): Promise<{ slug: string }[] | null> => {
+  return getPostSlugs(params);
 };
 
 /**
  * İlgili postları getir
  */
-export const getRelatedPosts = async (options: {
-  categorySlugs: string[];
-  excludeSlug: string;
-  cursor?: string;
-  limit?: number;
-}): Promise<PostResponse> => {
-  const { categorySlugs, excludeSlug, cursor = '', limit = API.DEFAULT_RELATED_POSTS } = options;
-  return getRelatedPostsQuery(cursor, categorySlugs, limit, excludeSlug);
+export const getRelatedPosts = async (params: GetRelatedPostsParams): Promise<PostResponse> => {
+  return getRelatedPostsQuery(params);
 };
 
 // ===== KATEGORİ İŞLEMLERİ =====
@@ -82,8 +75,8 @@ export const getCategory = async (slug: string): Promise<CategoryDetails> => {
 /**
  * Kategori slug'larını getir (generateStaticParams için)
  */
-export const getCategoryPaths = async (name?: string): Promise<{ slug: string }[] | null> => {
-  return getCategorySlugs(name);
+export const getCategoryPaths = async (params?: GetCategorySlugsParams): Promise<{ slug: string }[] | null> => {
+  return getCategorySlugs(params);
 };
 
 /**
@@ -91,14 +84,13 @@ export const getCategoryPaths = async (name?: string): Promise<{ slug: string }[
  */
 export const getPostsByCategory = async (
   categorySlug: string,
-  options: {
-    cursor?: string;
-    limit?: number;
-  } = {}
+  options: Omit<GetAllPostsParams, 'taxonomy'> = {}
 ): Promise<PostResponse> => {
-  const { cursor = '', limit = API.DEFAULT_POSTS_PER_PAGE } = options;
-  const taxonomy: TaxonomyFilter = { key: 'categoryName', value: categorySlug };
-  return getAllPosts(cursor, taxonomy, limit);
+  const params: GetAllPostsParams = {
+    ...options,
+    taxonomy: { key: 'categoryName', value: categorySlug }
+  };
+  return getAllPosts(params);
 };
 
 // ===== YORUM İŞLEMLERİ =====
@@ -106,11 +98,8 @@ export const getPostsByCategory = async (
 /**
  * Post yorumlarını getir
  */
-export const getPostComments = async (
-  slug: string, 
-  cursor?: string
-): Promise<PostComments> => {
-  return getComments(slug, cursor);
+export const getPostComments = async (params: GetCommentsParams): Promise<PostComments> => {
+  return getComments(params);
 };
 
 /**
@@ -132,13 +121,14 @@ export const submitComment = async (commentData: {
  */
 export const searchPosts = async (
   query: string,
-  options: {
-    cursor?: string;
-    limit?: number;
-  } = {}
+  options: Omit<GetAllPostsParams, 'search' | 'taxonomy'> = {}
 ): Promise<PostResponse> => {
-  const { cursor = '', limit = API.DEFAULT_POSTS_PER_PAGE } = options;
-  return getAllPosts(cursor, null, limit, query);
+  const params: GetAllPostsParams = {
+    ...options,
+    search: query,
+    taxonomy: null
+  };
+  return getAllPosts(params);
 };
 
 /**
@@ -146,14 +136,13 @@ export const searchPosts = async (
  */
 export const getPostsByTag = async (
   tagSlug: string,
-  options: {
-    cursor?: string;
-    limit?: number;
-  } = {}
+  options: Omit<GetAllPostsParams, 'taxonomy'> = {}
 ): Promise<PostResponse> => {
-  const { cursor = '', limit = API.DEFAULT_POSTS_PER_PAGE } = options;
-  const taxonomy: TaxonomyFilter = { key: 'tag', value: tagSlug };
-  return getAllPosts(cursor, taxonomy, limit);
+  const params: GetAllPostsParams = {
+    ...options,
+    taxonomy: { key: 'tag', value: tagSlug }
+  };
+  return getAllPosts(params);
 };
 
 // ===== YARDIMCI FONKSIYONLAR =====
@@ -163,7 +152,7 @@ export const getPostsByTag = async (
  */
 export const postExists = async (slug: string): Promise<boolean> => {
   try {
-    const result = await getPostSlugs(slug);
+    const result = await getPostSlugs({ slug });
     return result !== null && result.length > 0;
   } catch {
     return false;
@@ -175,7 +164,7 @@ export const postExists = async (slug: string): Promise<boolean> => {
  */
 export const categoryExists = async (name: string): Promise<boolean> => {
   try {
-    const result = await getCategorySlugs(name);
+    const result = await getCategorySlugs({ name });
     return result !== null && result.length > 0;
   } catch {
     return false;

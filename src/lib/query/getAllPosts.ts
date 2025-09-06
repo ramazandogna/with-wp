@@ -1,12 +1,12 @@
-import { PostResponse, TaxonomyFilter } from '../../types';
+import { PostResponse, GetAllPostsParams } from '../../types';
 import graphqlRequest from '../graphqlRequest';
 
-export async function getAllPosts(
+export async function getAllPosts({
   endCursor = '',
-  taxonomy: TaxonomyFilter | null = null,
+  taxonomy = null,
   howMany = 5,
-  search: string | null = null
-): Promise<PostResponse> {
+  search = null
+}: GetAllPostsParams = {}): Promise<PostResponse> {
   const query = `
     query getAllPosts(
       $endCursor: String

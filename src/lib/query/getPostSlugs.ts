@@ -1,10 +1,11 @@
 import graphqlRequest from '../graphqlRequest';
+import { GetPostSlugsParams } from '../../types';
 
 /**
  * Eğer slug parametresi verilirse o slug'a ait postun gerçekten var olup olmadığını döner.
  * Verilmezse tüm slug'ları döner (generateStaticParams için).
  */
-export async function getPostSlugs(slug?: string): Promise<{ slug: string }[] | null> {
+export async function getPostSlugs({ slug }: GetPostSlugsParams = {}): Promise<{ slug: string }[] | null> {
   if (slug) {
     const singleQuery = `
       query getPostSlug($slug: ID!) {
