@@ -1,36 +1,174 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WordPress + Next.js Headless CMS
 
-## Getting Started
+Bu proje WordPress'i headless CMS olarak kullanarak Next.js ile modern bir blog sitesi oluşturur.
 
-First, run the development server:
+## 🚀 Özellikler
 
+- **Headless WordPress CMS** - GraphQL API ile veri çekme
+- **Next.js 15** - App Router ve RSC kullanımı
+- **ISR (Incremental Static Regeneration)** - Performans optimizasyonu
+- **TypeScript** - Tam tip güvenliği
+- **TailwindCSS** - Modern stil sistemi
+- **SEO Odaklı** - Metadata ve structured data
+- **Performance Optimized** - Image optimization ve caching
+
+## 📋 Gereksinimler
+
+- Node.js 18+
+- pnpm
+- WordPress site (GraphQL plugin ile)
+
+## 🛠️ Kurulum
+
+1. Projeyi klonlayın:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repo-url>
+cd with-wp
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Bağımlılıkları yükleyin:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Environment değişkenlerini ayarlayın:
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. `.env` dosyasını düzenleyin:
+```
+GRAPHQL_URL=https://your-wordpress-site.com/graphql
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-## Learn More
+5. Geliştirme sunucusunu başlatın:
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Proje Yapısı
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                 # Next.js App Router
+├── components/          # React bileşenleri
+├── lib/                 # WordPress API fonksiyonları
+│   ├── wp-api.ts       # Ana API wrapper
+│   └── graphqlRequest.ts
+├── types/              # TypeScript type tanımları
+├── constants/          # Sabit değerler
+├── helpers/            # Yardımcı fonksiyonlar
+└── styles/             # CSS dosyaları
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎯 WordPress API Kullanımı
 
-## Deploy on Vercel
+### 1. Named Import Yaklaşımı (Önerilen):
+```typescript
+import { getPosts, getPost, getPostsByCategory } from '@/lib/wp-api';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+// Tüm postları getir
+const posts = await getPosts();
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+// Tekil post getir
+const post = await getPost('post-slug');
+
+// Kategoriye göre postları getir
+const categoryPosts = await getPostsByCategory('category-slug');
+```
+
+### 2. Default Import Yaklaşımı:
+```typescript
+import wp from '@/lib/wp-api';
+
+// Tüm postları getir
+const posts = await wp.getPosts();
+
+// Tekil post getir
+const post = await wp.getPost('post-slug');
+
+// Kategoriye göre postları getir
+const categoryPosts = await wp.getPostsByCategory('category-slug');
+```
+
+### 3. Gelişmiş Kullanım:
+```typescript
+import { getPosts, searchPosts, getRelatedPosts } from '@/lib/wp-api';
+
+// Sayfalama ile postlar
+const posts = await getPosts({ 
+  limit: 12, 
+  cursor: 'eyJvZmZzZXQiOjEwfQ==' 
+});
+
+// Arama
+const searchResults = await searchPosts('next.js');
+
+// İlgili postlar
+const related = await getRelatedPosts({
+  categorySlugs: ['react', 'javascript'],
+  excludeSlug: 'current-post-slug',
+  limit: 3
+});
+```
+
+## 🔧 TypeScript
+
+Proje tam TypeScript desteği ile yazılmıştır:
+
+- Strict mode aktif
+- `any` kullanımı yasak
+- Tüm API yanıtları tiplendirilmiş
+- Type güvenli WordPress API wrapper
+
+## 📈 SEO Optimizasyonu
+
+- Otomatik metadata oluşturma
+- Structured data
+- Open Graph tags
+- Performance optimizasyonları
+- ISR ile hızlı sayfa yükleme
+
+## 🚦 Komutlar
+
+```bash
+# Geliştirme
+pnpm dev
+
+# Build
+pnpm build
+
+# Lint
+pnpm lint
+
+# Type check
+pnpm exec tsc --noEmit
+```
+
+## 📝 WordPress Gereksinimleri
+
+WordPress sitenizde aşağıdaki plugin'lerin kurulu olması gerekir:
+
+- WPGraphQL
+- WPGraphQL for Advanced Custom Fields (ACF kullanıyorsanız)
+
+## 🎨 Styling
+
+TailwindCSS kullanılır:
+
+- Prettier ile otomatik sıralama
+- Dark mode desteği
+- Responsive design
+- Modern CSS features
+
+## 🔒 Güvenlik
+
+- Environment variables
+- CORS ayarları
+- Headers optimizasyonu
+- XSS protection
+
+---
+
+**Not:** Bu proje production kullanıma hazırdır. WordPress sitenizi ayarlayıp environment değişkenlerini güncelledikten sonra deploy edebilirsiniz.
