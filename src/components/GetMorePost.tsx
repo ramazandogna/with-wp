@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import type { PostResponse } from '@/types/posts';
-import { LoadingButton } from '@/components/ui/LoadingButton';
+import { Button } from '@/components/ui/button';
 
 export default function GetMorePost({
   contents,
@@ -29,7 +29,7 @@ export default function GetMorePost({
       })
     });
     const morePost = await response.json();
-    let updatePosts: PostResponse = {
+    const updatePosts: PostResponse = {
       pageInfo: morePost.pageInfo,
       nodes: [...contents.nodes, ...morePost.nodes]
     };
@@ -41,13 +41,13 @@ export default function GetMorePost({
   };
 
   return (
-    <LoadingButton
+    <Button
       loading={postsLoading}
       disabled={noMorePost}
       onClick={getMorePost}
       className="mt-6"
     >
       {noMorePost ? 'Daha Fazla Yazı Yok' : 'Daha Fazla Yazı Göster'}
-    </LoadingButton>
+    </Button>
   );
 }

@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { Container } from '@/components/layout';
 import { PostCard } from '@/components/PostCard';
-import GetMorePost from './GetMorePost';
 
 import type { PostNode, PageInfo, PostResponse } from '@/types/posts';
+import GetMorePost from "@/components/GetMorePost";
 
 type LatestPostsSectionProps = {
   initialPosts: PostNode[];
