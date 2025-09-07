@@ -21,7 +21,7 @@ export const SEO = {
 
 // API sabitleri
 export const API = {
-  GRAPHQL_URL: process.env.GRAPHQL_URL || '',
+  NEXT_PUBLIC_GRAPHQL_URL: process.env.NEXT_PUBLIC_GRAPHQL_URL || '',
   DEFAULT_POSTS_PER_PAGE: 10,
   DEFAULT_RELATED_POSTS: 3
 } as const;
