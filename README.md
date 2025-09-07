@@ -38,7 +38,7 @@ cp .env.example .env
 
 4. `.env` dosyasını düzenleyin:
 ```
-GRAPHQL_URL=https://your-wordpress-site.com/graphql
+NEXT_PUBLIC_GRAPHQL_URL=https://your-wordpress-site.com/graphql
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
