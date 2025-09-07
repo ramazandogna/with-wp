@@ -1,17 +1,7 @@
 import { Metadata } from 'next';
-import { SITE, SEO } from '../constants';
 
-interface SEOProps {
-  title?: string;
-  description?: string;
-  image?: string;
-  url?: string;
-  type?: 'website' | 'article';
-  publishedTime?: string;
-  modifiedTime?: string;
-  author?: string;
-  keywords?: string;
-}
+import { SITE, SEO } from '../constants';
+import type { SEOProps, StructuredDataProps, StructuredData } from '../types/seo';
 
 export function generateMetadata({
   title,
@@ -91,16 +81,7 @@ export function generateMetadata({
   return metadata;
 }
 
-interface StructuredDataProps {
-  title?: string;
-  description?: string;
-  image?: string;
-  url?: string;
-  type?: string;
-  publishedTime?: string;
-  modifiedTime?: string;
-  author?: string;
-}
+
 
 export function generateStructuredData({
   title,
@@ -112,7 +93,7 @@ export function generateStructuredData({
   modifiedTime,
   author = SITE.AUTHOR
 }: StructuredDataProps = {}) {
-  const structuredData: any = {
+  const structuredData: StructuredData = {
     '@context': 'https://schema.org',
     '@type': type,
     name: title || SITE.NAME,
