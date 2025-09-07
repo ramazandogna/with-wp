@@ -10,14 +10,13 @@ import {
   PostResponse,
   CategoryDetails,
   PostComments,
-  TaxonomyFilter,
+  
   GetAllPostsParams,
   GetRelatedPostsParams,
   GetCommentsParams,
   GetCategorySlugsParams,
   GetPostSlugsParams
 } from '../types';
-import { API } from '../constants';
 
 // Tüm lib fonksiyonlarını index'ten import et
 import {
