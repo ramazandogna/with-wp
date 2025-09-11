@@ -47,7 +47,9 @@ export default function GetMorePost({
       onClick={getMorePost}
       className="mt-6"
     >
-      {noMorePost ? 'Daha Fazla Yazı Yok' : 'Daha Fazla Yazı Göster'}
+      {noMorePost ? 
+      'Daha Fazla Yazı Yok' : 
+      'Daha Fazla Yazı Göster'}
     </Button>
   );
 }
