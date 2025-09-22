@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import clsx from 'clsx';
 
@@ -19,29 +18,32 @@ export function PostCard({
   date,
   category,
   variant = 'default',
-  className,
+  className
 }: PostCardProps) {
   return (
-    <Card className={clsx(variant === 'alt' ? 'bg-muted/60 border-primary' : '', className, '!p-0', 'flex flex-col h-full')}> 
-      <div className="w-full h-40 md:h-48 bg-gray-200 rounded-t-xl overflow-hidden flex items-center justify-center">
-        {image ? (
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
-        ) : null}
+    <Card
+      className={clsx(
+        variant === 'alt'
+          ? 'border border-white/30 bg-white/5 px-8 py-4 shadow-lg backdrop-blur-3xl'
+          : '',
+        className,
+        '!p-0',
+        'flex h-full flex-col'
+      )}
+    >
+      <div className="flex h-40 w-full items-center justify-center overflow-hidden rounded-t-xl bg-gray-200 md:h-48">
+        {image ? <img src={image} alt={title} className="h-full w-full object-cover" /> : null}
       </div>
-      <div className="flex-1 flex flex-col pt-4 pb-6 px-6">
+      <div className="flex flex-1 flex-col px-6 pt-4 pb-6">
         <CardHeader className="px-0 pt-0 pb-2">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-primary font-semibold">{category}</span>
-            <span className="text-xs text-muted-foreground">{date}</span>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-primary text-xs font-semibold">{category}</span>
+            <span className="text-muted-foreground text-xs">{date}</span>
           </div>
           <h2 className="text-lg font-bold">{title}</h2>
         </CardHeader>
-        <CardContent className="px-0 pt-0 flex-1">
-          <p className="text-sm text-muted-foreground">{excerpt}</p>
+        <CardContent className="flex-1 px-0 pt-0">
+          <p className="text-muted-foreground text-sm">{excerpt}</p>
         </CardContent>
       </div>
     </Card>

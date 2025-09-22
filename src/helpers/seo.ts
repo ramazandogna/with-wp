@@ -81,8 +81,6 @@ export function generateMetadata({
   return metadata;
 }
 
-
-
 export function generateStructuredData({
   title,
   description,

@@ -12,7 +12,7 @@ export default async function graphqlRequest<T = unknown>(
   }
 
   if (!url) throw new Error('NEXT_PUBLIC_GRAPHQL_URL tanımlı değil');
-  
+
   try {
     const res = await fetch(url, {
       method: 'POST',

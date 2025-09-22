@@ -1,8 +1,8 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 import { Container } from '@/components/layout';
 import { PostCard } from '@/components/PostCard';
-import GetMorePost from "@/components/GetMorePost";
+import GetMorePost from '@/components/GetMorePost';
 import type { PostNode, PageInfo, PostResponse } from '@/types/posts';
 
 type LatestPostsSectionProps = {
@@ -11,7 +11,11 @@ type LatestPostsSectionProps = {
   taxonomy?: { key: string | null; value: string | null };
 };
 
-export function LatestPostsSection({ initialPosts, initialPageInfo, taxonomy }: LatestPostsSectionProps) {
+export function LatestPostsSection({
+  initialPosts,
+  initialPageInfo,
+  taxonomy
+}: LatestPostsSectionProps) {
   const [contents, setContents] = useState<PostResponse>({
     nodes: initialPosts,
     pageInfo: initialPageInfo
@@ -20,8 +24,8 @@ export function LatestPostsSection({ initialPosts, initialPageInfo, taxonomy }: 
   return (
     <Container>
       <div className="py-8">
-        <h1 className="text-3xl font-bold mb-8">Blog Yazıları</h1>
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+        <h1 className="mb-8 text-3xl font-bold">Blog Yazıları</h1>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {contents.nodes.map((post, idx) => (
             <PostCard
               key={post.databaseId}
@@ -35,7 +39,7 @@ export function LatestPostsSection({ initialPosts, initialPageInfo, taxonomy }: 
             />
           ))}
         </div>
-        <div className="flex justify-center mt-8">
+        <div className="mt-8 flex justify-center">
           <GetMorePost
             contents={contents}
             setContents={setContents}

@@ -1,7 +1,9 @@
 import graphqlRequest from '../graphqlRequest';
 import { GetCategorySlugsParams } from '../../types';
 
-export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): Promise<{ slug: string }[] | null> {
+export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): Promise<
+  { slug: string }[] | null
+> {
   if (name) {
     const singleQuery = `
       query getCategorySlug($name: ID!) {
@@ -10,7 +12,9 @@ export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): P
         }
       }
     `;
-    const resJson = await graphqlRequest<{ category: { slug: string } | null }>(singleQuery, { name });
+    const resJson = await graphqlRequest<{ category: { slug: string } | null }>(singleQuery, {
+      name
+    });
     if (!resJson?.data?.category) return null;
     return [{ slug: resJson.data.category.slug }];
   }

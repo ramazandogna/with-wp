@@ -1,6 +1,6 @@
 /**
  * WordPress API Wrapper - Functional Approach
- * 
+ *
  * Bu dosya tüm WordPress GraphQL işlemlerini merkezi bir yerden yönetir.
  * ISR ve SEO optimizasyonu için cache stratejileri içerir.
  */
@@ -10,7 +10,6 @@ import {
   PostResponse,
   CategoryDetails,
   PostComments,
-  
   GetAllPostsParams,
   GetRelatedPostsParams,
   GetCommentsParams,
@@ -51,7 +50,9 @@ export const getPost = async (slug: string): Promise<PostType> => {
 /**
  * Post slug'larını getir (generateStaticParams için)
  */
-export const getPostPaths = async (params?: GetPostSlugsParams): Promise<{ slug: string }[] | null> => {
+export const getPostPaths = async (
+  params?: GetPostSlugsParams
+): Promise<{ slug: string }[] | null> => {
   return getPostSlugs(params);
 };
 
@@ -74,7 +75,9 @@ export const getCategory = async (slug: string): Promise<CategoryDetails> => {
 /**
  * Kategori slug'larını getir (generateStaticParams için)
  */
-export const getCategoryPaths = async (params?: GetCategorySlugsParams): Promise<{ slug: string }[] | null> => {
+export const getCategoryPaths = async (
+  params?: GetCategorySlugsParams
+): Promise<{ slug: string }[] | null> => {
   return getCategorySlugs(params);
 };
 
@@ -174,10 +177,10 @@ export const categoryExists = async (name: string): Promise<boolean> => {
 
 /**
  * WordPress API fonksiyonlarının toplu exportu
- * 
+ *
  * Kullanım 1 (Named imports):
  * import { getPosts, getPost } from '@/lib/wp-api'
- * 
+ *
  * Kullanım 2 (Default import):
  * import wp from '@/lib/wp-api'
  * wp.getPosts()
@@ -188,23 +191,23 @@ const wp = {
   getPost,
   getPostPaths,
   getRelatedPosts,
-  
+
   // Categories
   getCategory,
   getCategoryPaths,
   getPostsByCategory,
-  
+
   // Comments
   getPostComments,
   submitComment,
-  
+
   // Search & Tags
   searchPosts,
   getPostsByTag,
-  
+
   // Utilities
   postExists,
-  categoryExists,
+  categoryExists
 } as const;
 
 export default wp;

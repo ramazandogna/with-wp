@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // Performance optimizasyonları
@@ -13,10 +13,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'wp.ramazandogna.com',
-        pathname: '/wp-content/uploads/**',
-      },
+        pathname: '/wp-content/uploads/**'
+      }
     ],
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/avif', 'image/webp']
   },
 
   // SEO için redirects
@@ -25,8 +25,8 @@ const nextConfig: NextConfig = {
       {
         source: '/wp-admin/:path*',
         destination: '/',
-        permanent: true,
-      },
+        permanent: true
+      }
     ];
   },
 
@@ -51,16 +51,16 @@ const nextConfig: NextConfig = {
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff'
-          },
-        ],
-      },
+          }
+        ]
+      }
     ];
   },
 
   // Production optimizations
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+    removeConsole: process.env.NODE_ENV === 'production'
+  }
 };
 
 export default nextConfig;

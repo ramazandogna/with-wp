@@ -1,8 +1,6 @@
 import { CreateCommentInput, CreateCommentResponse } from '@/types';
 import graphqlRequest from '../graphqlRequest';
 
-
-
 export async function createComment({
   body
 }: {

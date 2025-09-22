@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState } from 'react';
 import type { PostResponse } from '@/types/posts';
 import { Button } from '@/components/ui/button';
@@ -45,11 +45,10 @@ export default function GetMorePost({
       loading={postsLoading}
       disabled={noMorePost}
       onClick={getMorePost}
-      className="mt-6"
+      variant="glass"
+      size="default"
     >
-      {noMorePost ? 
-      'Daha Fazla Yazı Yok' : 
-      'Daha Fazla Yazı Göster'}
+      {noMorePost ? 'Daha Fazla Yazı Yok' : 'Daha Fazla Getir'}
     </Button>
   );
 }
