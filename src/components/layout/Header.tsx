@@ -11,7 +11,7 @@ export function Header() {
             <span className="flex items-center justify-center rounded-lg bg-white/10 p-2">
               <LucideSparkles className="h-6 w-6 text-white/80" />
             </span>
-            <span className="text-xl font-bold tracking-wide text-white">React Bits</span>
+            <span className="text-xl font-bold tracking-wide text-white">Ramazan</span>
           </div>
           <div className="flex items-center gap-6">
             <a
