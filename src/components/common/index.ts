@@ -4,3 +4,4 @@ export * from './Container';
 export * from './PostCard';
 export * from './DotGrid';
 export * from './GetMorePost';
+export * from './SectionTitle';

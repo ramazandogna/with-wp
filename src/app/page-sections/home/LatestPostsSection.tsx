@@ -1,8 +1,12 @@
 'use client';
+//react
 import { useState } from 'react';
-import { Container, GetMorePost, PostCard } from '@/components/common';
+//components
+import { Container, GetMorePost, PostCard, SectionTitle } from '@/components/common';
+//types
 import type { PostNode, PageInfo, PostResponse } from '@/types/posts';
 
+// props type
 type LatestPostsSectionProps = {
   initialPosts: PostNode[];
   initialPageInfo: PageInfo;
@@ -14,6 +18,7 @@ export function LatestPostsSection({
   initialPageInfo,
   taxonomy
 }: LatestPostsSectionProps) {
+  //posts state
   const [contents, setContents] = useState<PostResponse>({
     nodes: initialPosts,
     pageInfo: initialPageInfo
@@ -21,9 +26,16 @@ export function LatestPostsSection({
 
   return (
     <Container>
-      <span>
-        <h1 className="mb-8 text-3xl font-bold">Blog Yazıları</h1>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <span className="flex flex-col gap-4">
+        {/* 
+        Section Title 
+        */}
+        <SectionTitle>Blog Yazıları</SectionTitle>
+
+        {/* 
+        Posts 
+        Grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 bg-background/50 border-border/20 rounded-lg border px-8 py-4 shadow-lg backdrop-blur-lg">
           {contents.nodes.map((post, idx) => (
             <PostCard
               key={post.databaseId}
