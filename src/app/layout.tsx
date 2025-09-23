@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className="dark">
+    <html lang="tr">
       <head>
         <link rel="preconnect" href="https://wp.ramazandogna.com" />
         <link rel="dns-prefetch" href="https://wp.ramazandogna.com" />

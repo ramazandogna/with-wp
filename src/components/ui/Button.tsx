@@ -17,11 +17,11 @@ const buttonVariants = cva(
         secondary:
           'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 border-white/30!',
         ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-primary px-0 py-0! underline-offset-4 hover:underline',
         filled:
-          'bg-white text-black border border-white/30 shadow-lg hover:bg-white/90  rounded-full',
+          'bg-background/90 text-foreground border border-border/30 shadow-lg hover:bg-background/80 rounded-full',
         glass:
-          'bg-white/5 text-white border border-white/30 shadow-lg backdrop-blur-xl hover:bg-white/10 rounded-full'
+          'bg-background/50 text-foreground/80 border border-border/30 shadow-lg backdrop-blur-xl hover:bg-background/30 rounded-full'
       },
       size: {
         default: 'px-8 py-2 rounded-lg text-base px-8 py-4 has-[>svg]:px-3',
