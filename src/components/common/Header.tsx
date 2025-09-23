@@ -1,5 +1,5 @@
 import { Container } from './Container';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/Button';
 import { LucideSparkles } from 'lucide-react';
 
 export function Header() {

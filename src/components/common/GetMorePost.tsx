@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import type { PostResponse } from '@/types/posts';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui';
 
 export function GetMorePost({
   contents,
