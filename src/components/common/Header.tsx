@@ -7,7 +7,9 @@ import { useState } from 'react';
 import { Container } from '@/components/common';
 import { Button } from '@/components/ui';
 //icons
-import { LucideSparkles, MenuIcon } from 'lucide-react';
+import { LucideSparkles, MenuIcon, Sun, SunMoon } from 'lucide-react';
+//hooks
+import { useTheme } from '@/hooks/use.theme';
 
 export function Header() {
   //states
@@ -37,6 +39,7 @@ export function Header() {
     }
   };
 
+  const { toggleTheme, theme } = useTheme();
   return (
     <>
       <header className="fixed z-50 max-h-[100px] w-full pt-8">
@@ -78,6 +81,16 @@ export function Header() {
               <Link className="w-full py-3" href={'#'}>
                 <Button variant="link">Contact</Button>
               </Link>
+              <span
+                onClick={toggleTheme}
+                className="bg-destructive/10 hover:bg-destructive/40 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="text-primary h-6 w-6 " />
+                ) : (
+                  <SunMoon className="text-primary h-6 w-6" />
+                )}
+              </span>
             </div>
           </nav>
         </Container>
