@@ -31,7 +31,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header />
-        <div className="relative h-full min-h-screen w-full">
+        <div className="relative header-padding h-full min-h-screen w-full">
           <div className="pointer-events-none fixed inset-0 -z-10">
             <DotGrid
               dotSize={5}

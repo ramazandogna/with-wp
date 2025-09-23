@@ -21,7 +21,7 @@ export function LatestPostsSection({
 
   return (
     <Container>
-      <div className="py-8">
+      <span>
         <h1 className="mb-8 text-3xl font-bold">Blog Yazıları</h1>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {contents.nodes.map((post, idx) => (
@@ -44,7 +44,7 @@ export function LatestPostsSection({
             taxonomy={taxonomy ?? { key: null, value: null }}
           />
         </div>
-      </div>
+      </span>
     </Container>
   );
 }
