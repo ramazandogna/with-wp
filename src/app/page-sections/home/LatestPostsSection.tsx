@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Container } from '@/components/layout';
-import { PostCard } from '@/components/PostCard';
-import GetMorePost from '@/components/GetMorePost';
+import { Container, GetMorePost, PostCard } from '@/components/common';
 import type { PostNode, PageInfo, PostResponse } from '@/types/posts';
 
 type LatestPostsSectionProps = {
