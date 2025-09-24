@@ -12,7 +12,7 @@ const compat = new FlatCompat({
 const eslintConfig = [
   // Top-level ignore for next-env.d.ts (ESLint 9+ flat config best practice)
   {
-    ignores: ['next-env.d.ts']
+    ignores: ['next-env.d.ts', 'node_modules/**', '.next/**', 'out/**', 'build/**']
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {

@@ -1,6 +1,6 @@
 'use client';
 //react
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 
 // Theme type and context value

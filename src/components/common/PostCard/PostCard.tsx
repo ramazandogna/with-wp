@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader } from '@/components/ui';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 type PostCardProps = {
   title: string;
@@ -32,7 +33,7 @@ export function PostCard({
       )}
     >
       <div className="flex h-40 w-full items-center justify-center overflow-hidden rounded-t-xl bg-gray-200 md:h-48">
-        {image ? <img src={image} alt={title} className="h-full w-full object-cover" /> : null}
+        {image ? <Image src={image} alt={title} className="h-full w-full object-cover" /> : null}
       </div>
       <div className="flex flex-1 flex-col px-6 pt-4 pb-6">
         <CardHeader className="px-0 pt-0 pb-2">
