@@ -129,6 +129,16 @@ export function Header() {
                 Contact
               </Button>
             </Link>
+            <span
+                onClick={toggleTheme}
+                className="absolute bottom-4 right-4 bg-destructive/10 hover:bg-destructive/40 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="text-primary h-6 w-6 " />
+                ) : (
+                  <SunMoon className="text-primary h-6 w-6" />
+                )}
+              </span>
           </nav>
         </div>
       )}
