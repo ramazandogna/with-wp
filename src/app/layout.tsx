@@ -6,8 +6,8 @@ import { generateMetadata } from '@/helpers/seo';
 // server utils
 import { getInitialTheme } from '@/lib/server-utils';
 // components
-import { Header, Footer, DotGrid } from '@/components/common';
-import { ThemeProvider } from '@/components/provider/';
+import { Header, Footer } from '@/components/common';
+import { ThemeProvider } from '@/components/provider';
 // styles
 import '../styles/globals.css';
 
@@ -25,12 +25,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = generateMetadata();
 
-export default async function RootLayout({
+export async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const theme = await getInitialTheme();
 
   return (
@@ -41,26 +40,27 @@ export default async function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider defaultTheme={theme}>
-        <Header />
-          <div className="relative header-padding h-full min-h-screen w-full">
-          <div className="pointer-events-none fixed inset-0 -z-10">
-            <DotGrid
-              dotSize={5}
-              gap={15}
-              baseColor="#271E37"
-              activeColor="#5227FF"
-              proximity={120}
-              shockRadius={250}
-              shockStrength={5}
-              resistance={750}
-              returnDuration={1.5}
-            />
-          </div>
-          <main className="relative h-full min-h-screen w-full flex-1">{children}</main>
-        </div>
-        <Footer />
+          {/*           
+          Header
+           */}
+          <Header />
+          {/*           
+            Main
+            */}
+          <main className="header-padding relative h-full min-h-screen w-full flex-1">{children}</main>
+
+          {/*           
+          Footer
+           */}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
+{
+  /* FaultyTerminal background animation */
+}
+
+export default RootLayout;

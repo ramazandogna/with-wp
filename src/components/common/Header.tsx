@@ -15,19 +15,21 @@ export function Header() {
   //states
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  console.log('ismenuopen:', isMenuOpen);
-  console.log('ismenuvisible', isMenuVisible);
 
   // Open Menu
   const openMenu = () => {
     setIsMenuVisible(true);
     setTimeout(() => setIsMenuOpen(true), 300);
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
   };
 
   // Close Menu
   const closeMenu = () => {
     setIsMenuOpen(false);
     setTimeout(() => setIsMenuVisible(false), 300);
+    document.body.style.overflow = 'auto';
+    document.body.style.touchAction = 'auto';
   };
 
   // Toggle Menu
