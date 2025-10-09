@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
         pathname: '/wp-content/uploads/**'
       }
     ],
-    formats: ['image/avif', 'image/webp']
+    formats: ['image/avif', 'image/webp'],
   },
 
   // SEO için redirects
@@ -51,6 +51,10 @@ const nextConfig: NextConfig = {
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
           }
         ]
       }

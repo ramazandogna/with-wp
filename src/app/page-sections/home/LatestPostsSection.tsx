@@ -35,17 +35,19 @@ export function LatestPostsSection({
         {/* 
         Posts 
         Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 bg-background/50 border-border/20 rounded-lg border px-8 py-4 shadow-lg backdrop-blur-lg">
+        <div className="bg-background/50 border-border/20 grid grid-cols-1 gap-6 rounded-lg border px-8 py-8 shadow-lg backdrop-blur-lg">
           {contents.nodes.map((post, idx) => (
             <PostCard
               key={post.databaseId}
               title={post.title}
               excerpt={post.excerpt}
-              image={post.featuredImage?.node?.mediaDetails?.sizes?.[0]?.sourceUrl || undefined}
+              image={post.featuredImage?.node.mediaDetails.sizes?.at(-1)?.sourceUrl}
               date={new Date(post.date).toLocaleDateString('tr-TR')}
               category={post.categories?.nodes?.[0]?.name || undefined}
               variant={idx % 4 < 2 ? 'default' : 'alt'}
-              className={(idx % 2 === 0 ? 'h-[250px]' : 'h-[200px]') + ' flex flex-col'}
+              className={
+                (idx % 2 === 0 ? 'h-[250px]' : 'h-[200px]') + ' shadow-0 flex flex-col border-0'
+              }
             />
           ))}
         </div>

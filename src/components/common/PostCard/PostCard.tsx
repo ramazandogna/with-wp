@@ -1,6 +1,10 @@
-import { Card, CardContent, CardHeader } from '@/components/ui';
-import clsx from 'clsx';
+//next
 import Image from 'next/image';
+//components
+import { Button, Card, CardContent, CardHeader } from '@/components/ui';
+//lib
+import { getExcerpt } from '@/lib/stripTags';
+import clsx from 'clsx';
 
 type PostCardProps = {
   title: string;
@@ -32,19 +36,53 @@ export function PostCard({
         'flex h-full flex-col'
       )}
     >
-      <div className="flex h-40 w-full items-center justify-center overflow-hidden rounded-t-xl bg-gray-200 md:h-48">
-        {image ? <Image src={image} alt={title} className="h-full w-full object-cover" /> : null}
+      {/*
+      Image 
+      */}
+      <div className="relative flex h-48 w-full items-center justify-center overflow-hidden rounded-t-lg bg-gray-200 md:h-80">
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover object-[center_top]"
+            sizes="(max-width: 768px) 100vw, 400px"
+            priority
+            quality={75}
+          />
+        ) : null}
       </div>
-      <div className="flex flex-1 flex-col px-6 pt-4 pb-6">
+      {/*
+      Text Content 
+      */}
+      <div className="flex flex-1 flex-col px-6 pb-6">
         <CardHeader className="px-0 pt-0 pb-2">
           <div className="mb-2 flex items-center justify-between">
+            {/*
+            Category and Date
+            */}
             <span className="text-primary text-xs font-semibold">{category}</span>
             <span className="text-muted-foreground text-xs">{date}</span>
           </div>
-          <h2 className="text-lg font-bold">{title}</h2>
+          {/*
+           Title
+           */}
+          <h2 className="text-[24px] font-bold">{title}</h2>
         </CardHeader>
         <CardContent className="flex-1 px-0 pt-0">
-          <p className="text-muted-foreground text-sm">{excerpt}</p>
+          {/* 
+          Excerpt
+           */}
+          <p className="text-muted-foreground">{getExcerpt(excerpt, { raw: true })}</p>
+          {/*
+           Read More Button 
+           */}
+          <Button
+            variant="link"
+            className="mt-4 px-0 text-[15px] font-semibold italic opacity-50 hover:opacity-75"
+          >
+            Devamını Oku &rarr;
+          </Button>
         </CardContent>
       </div>
     </Card>
