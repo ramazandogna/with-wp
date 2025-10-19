@@ -40,6 +40,7 @@ export function LatestPostsSection({
             <PostCard
               key={post.databaseId}
               title={post.title}
+              slug={post.slug}
               excerpt={post.excerpt}
               image={post.featuredImage?.node.mediaDetails.sizes?.at(-1)?.sourceUrl}
               date={new Date(post.date).toLocaleDateString('tr-TR')}

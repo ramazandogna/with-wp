@@ -5,10 +5,12 @@ import { Button, Card, CardContent, CardHeader } from '@/components/ui';
 //lib
 import { getExcerpt } from '@/lib/stripTags';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 type PostCardProps = {
   title: string;
   excerpt: string;
+  slug: string;
   image?: string | undefined;
   date: string;
   category?: string | undefined;
@@ -21,6 +23,7 @@ export function PostCard({
   excerpt,
   image,
   date,
+  slug,
   category,
   variant = 'default',
   className
@@ -77,12 +80,14 @@ export function PostCard({
           {/*
            Read More Button 
            */}
-          <Button
-            variant="link"
-            className="mt-4 px-0 text-[15px] font-semibold italic opacity-50 hover:opacity-75"
-          >
-            Devamını Oku &rarr;
-          </Button>
+          <Link href={`/${slug}`}>
+            <Button
+              variant="link"
+              className="mt-4 px-0 text-[15px] font-semibold italic opacity-50 hover:opacity-75"
+            >
+              Devamını Oku &rarr;
+            </Button>
+          </Link>
         </CardContent>
       </div>
     </Card>
