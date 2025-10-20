@@ -13,11 +13,13 @@ export default function PostDetailMain({ post }: PostDetailMainProps) {
   // Hero için veri hazırla
   const heroData = {
     title: post.title,
-    featuredImage: post.featuredImage?.node?.mediaDetails?.sizes?.at(-1) || undefined,
+    featuredImage: post.featuredImage?.node?.mediaDetails?.sizes?.at(-1),
     date: post.date,
-    categories: post.categories?.nodes?.map(({ name, slug, link }) => ({ name, slug, link })) || [],
+    categories: post.categories.nodes?.map(({ name, slug, link }) => ({ name, slug, link })),
     author: post.author?.node,
-    commentCount: post.commentCount || 0
+    commentCount: post.commentCount || 0,
+    slug: post.slug,
+    postLenght: post.content.length
   };
 
   // Content için veri hazırla
