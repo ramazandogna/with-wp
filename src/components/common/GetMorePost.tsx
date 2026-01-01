@@ -36,8 +36,8 @@ export function GetMorePost({
     setTimeout(() => {
       setPostsLoading(false);
       setContents(updatePosts);
+      setNoMorePost(!morePost.pageInfo.hasNextPage);
     }, 400);
-    setNoMorePost(!morePost.pageInfo.hasNextPage);
   };
 
   return (

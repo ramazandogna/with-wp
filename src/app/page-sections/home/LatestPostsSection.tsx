@@ -25,7 +25,7 @@ export function LatestPostsSection({
   });
 
   return (
-    <Container>
+    <Container className='pb-4'>
       <span className="flex flex-col gap-4">
         {/* 
         Section Title 
@@ -52,7 +52,7 @@ export function LatestPostsSection({
             />
           ))}
         </div>
-        <div className="mt-8 flex justify-center">
+        <div className="flex justify-center">
           <GetMorePost
             contents={contents}
             setContents={setContents}
