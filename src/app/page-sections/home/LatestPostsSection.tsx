@@ -52,7 +52,7 @@ export function LatestPostsSection({
             />
           ))}
         </div>
-        <div className="flex justify-center">
+        <div className="mt-4 flex justify-center">
           <GetMorePost
             contents={contents}
             setContents={setContents}

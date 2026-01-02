@@ -15,29 +15,36 @@ export function GetMorePost({
   const [postsLoading, setPostsLoading] = useState(false);
   const [noMorePost, setNoMorePost] = useState(false);
 
+  /**
+   * @usage Fetch more posts and update the state
+   * @returns void
+   */
   const getMorePost = async () => {
     if (postsLoading || noMorePost) return;
     setPostsLoading(true);
-    // API route üzerinden fetch ile veri çek
-    const response = await fetch('/api/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: '',
-        endCursor: contents.pageInfo.endCursor,
-        taxonomy
-      })
-    });
-    const morePost = await response.json();
-    const updatePosts: PostResponse = {
-      pageInfo: morePost.pageInfo,
-      nodes: [...contents.nodes, ...morePost.nodes]
-    };
-    setTimeout(() => {
-      setPostsLoading(false);
+
+    try {
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: '',
+          endCursor: contents.pageInfo.endCursor,
+          taxonomy
+        })
+      });
+      const morePost = await response.json();
+      const updatePosts: PostResponse = {
+        pageInfo: morePost.pageInfo,
+        nodes: [...contents.nodes, ...morePost.nodes]
+      };
+
+      // State'i hemen güncelle
       setContents(updatePosts);
       setNoMorePost(!morePost.pageInfo.hasNextPage);
-    }, 400);
+    } finally {
+      setPostsLoading(false);
+    }
   };
 
   return (

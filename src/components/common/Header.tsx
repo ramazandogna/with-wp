@@ -51,10 +51,10 @@ export function Header() {
             Logo 
             */}
             <Link href="/" className="group/logo flex items-center gap-3">
-              <span className="bg-primary/10 group-hover/logo:bg-primary/30 flex items-center justify-center rounded-lg p-2 transition-colors">
-                <LucideSparkles className="text-primary h-6 w-6" />
+              <span className="bg-primary/10 group-hover/logo:bg-destructive/40 flex items-center justify-center rounded-lg p-2 transition-colors">
+                <LucideSparkles className="text-primary h-6 w-6 transition-transform duration-600 group-hover/logo:rotate-90" />
               </span>
-              <span className="text-foreground group-hover:text-primary text-xl font-bold tracking-wide transition-colors">
+              <span className="text-foreground group-hover/logo:text-primary/30 text-xl font-bold tracking-wide transition-colors duration-600">
                 Ramazan
               </span>
             </Link>
@@ -85,12 +85,12 @@ export function Header() {
               </Link>
               <span
                 onClick={toggleTheme}
-                className="bg-destructive/10 hover:bg-destructive/40 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
+                className="group bg-destructive/10 hover:bg-destructive/40 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
               >
                 {theme === 'dark' ? (
-                  <Sun className="text-primary h-6 w-6 " />
+                  <Sun className="text-primary h-6 w-6 origin-center transition-transform duration-800 group-hover:rotate-12!" />
                 ) : (
-                  <SunMoon className="text-primary h-6 w-6" />
+                  <SunMoon className="text-primary h-6 w-6 origin-center transition-transform duration-800 group-hover:rotate-12!" />
                 )}
               </span>
             </div>
@@ -130,15 +130,15 @@ export function Header() {
               </Button>
             </Link>
             <span
-                onClick={toggleTheme}
-                className="absolute bottom-4 right-4 bg-destructive/10 hover:bg-destructive/40 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="text-primary h-6 w-6 " />
-                ) : (
-                  <SunMoon className="text-primary h-6 w-6" />
-                )}
-              </span>
+              onClick={toggleTheme}
+              className="group bg-destructive/10 hover:bg-destructive/40 absolute right-4 bottom-4 flex cursor-pointer items-center justify-center rounded-lg p-2 transition-colors duration-800"
+            >
+              {theme === 'dark' ? (
+                <Sun className="text-primary block h-6 w-6 origin-center transition-transform duration-800 group-hover:rotate-12!" />
+              ) : (
+                <SunMoon className="text-primary block h-6 w-6 origin-center transition-transform duration-800 group-hover:rotate-12!" />
+              )}
+            </span>
           </nav>
         </div>
       )}

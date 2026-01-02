@@ -47,7 +47,7 @@ export async function RootLayout({
           {/*           
             Main
             */}
-          <main className="header-padding relative h-full min-h-screen w-full flex-1">{children}</main>
+          <main className="header-padding relative min-h-screen w-full flex-1">{children}</main>
 
           {/*           
           Footer
