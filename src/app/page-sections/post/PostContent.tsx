@@ -41,8 +41,8 @@ export default async function PostContent({ content }: PostContentProps) {
           <PostImage
             src={src}
             alt={alt || 'Post image'}
-            width={imgWidth}
-            height={imgHeight}
+            {...(imgWidth && { width: imgWidth })}
+            {...(imgHeight && { height: imgHeight })}
             className={className || 'my-4'}
             blurDataURL={blurDataURL}
             placeholder="blur"
@@ -81,9 +81,9 @@ export default async function PostContent({ content }: PostContentProps) {
               <PostImage
                 src={src}
                 alt={alt || 'Post image'}
-                width={imgWidth}
-                height={imgHeight}
-                className={imgClassName}
+                {...(imgWidth && { width: imgWidth })}
+                {...(imgHeight && { height: imgHeight })}
+                className={imgClassName || ''}
                 blurDataURL={blurDataURL}
                 placeholder="blur"
                 priority={false}
