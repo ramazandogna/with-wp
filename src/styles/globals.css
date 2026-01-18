@@ -212,7 +212,7 @@
   }
 
   .post-content figure img {
-    @apply h-auto w-full rounded-lg;
+    @apply rounded-lg;
   }
 
   .post-content img {
@@ -225,30 +225,44 @@
 
   /* Image Alignment */
   .post-content .alignleft,
-  .post-content figure.alignleft,
-  .post-content .wp-block-image .alignleft {
+  .post-content figure.alignleft {
     float: left !important;
     margin: 0.5rem 1.5rem 1rem 0 !important;
     max-width: 50% !important;
+    width: auto !important;
   }
 
   .post-content .alignright,
-  .post-content figure.alignright,
-  .post-content .wp-block-image .alignright {
+  .post-content figure.alignright {
     float: right !important;
     margin: 0.5rem 0 1rem 1.5rem !important;
     max-width: 50% !important;
+    width: auto !important;
   }
 
   .post-content .aligncenter,
   .post-content figure.aligncenter {
     @apply mx-auto block;
     clear: both !important;
+    max-width: 100% !important;
   }
 
-  .post-content figure.alignleft img,
-  .post-content figure.alignright img {
-    width: auto !important;
+  /* Ensure images inside aligned figures maintain their dimensions */
+  .post-content figure.alignleft > div,
+  .post-content figure.alignright > div {
+    width: 100% !important;
+  }
+
+  .post-content .wp-block-image .alignleft {
+    float: left !important;
+    margin: 0.5rem 1.5rem 1rem 0 !important;
+    max-width: 50% !important;
+  }
+
+  .post-content .wp-block-image .alignright {
+    float: right !important;
+    margin: 0.5rem 0 1rem 1.5rem !important;
+    max-width: 50% !important;
   }
 
   /* Quote */

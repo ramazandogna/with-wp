@@ -25,14 +25,14 @@ export default async function PostContent({ content }: PostContentProps) {
     replace: (domNode: DOMNode) => {
       // img taglerini Next.js Image ile değiştir
       if (domNode.type === 'tag' && domNode instanceof Element && domNode.name === 'img') {
-        const { src, alt, width, height } = domNode.attribs;
+        const { src, alt, width, height, class: className } = domNode.attribs;
 
         // Eğer src yoksa default davranış
         if (!src) return domNode;
 
-        // WordPress'ten gelen boyutları kullan (REQUIRED build time'da)
-        const imgWidth = width ? parseInt(width, 10) : 800; // Fallback if missing
-        const imgHeight = height ? parseInt(height, 10) : 600; // Fallback if missing
+        // WordPress'ten gelen boyutları kullan
+        const imgWidth = width ? parseInt(width, 10) : undefined;
+        const imgHeight = height ? parseInt(height, 10) : undefined;
         const { color } = extractImageMetadata(src);
         const blurDataURL = generateBlurDataURL(color);
 
@@ -43,7 +43,7 @@ export default async function PostContent({ content }: PostContentProps) {
             alt={alt || 'Post image'}
             width={imgWidth}
             height={imgHeight}
-            className="my-4"
+            className={className || 'my-4'}
             blurDataURL={blurDataURL}
             placeholder="blur"
             priority={false}
@@ -59,14 +59,14 @@ export default async function PostContent({ content }: PostContentProps) {
         );
 
         if (imgElement) {
-          const { src, alt, width, height } = imgElement.attribs;
+          const { src, alt, width, height, class: imgClassName } = imgElement.attribs;
 
           // src yoksa default davranış
           if (!src) return domNode;
 
           // WordPress'ten gelen boyutları kullan
-          const imgWidth = width ? parseInt(width, 10) : 800;
-          const imgHeight = height ? parseInt(height, 10) : 600;
+          const imgWidth = width ? parseInt(width, 10) : undefined;
+          const imgHeight = height ? parseInt(height, 10) : undefined;
           const { color } = extractImageMetadata(src);
           const blurDataURL = generateBlurDataURL(color);
 
@@ -83,6 +83,7 @@ export default async function PostContent({ content }: PostContentProps) {
                 alt={alt || 'Post image'}
                 width={imgWidth}
                 height={imgHeight}
+                className={imgClassName}
                 blurDataURL={blurDataURL}
                 placeholder="blur"
                 priority={false}
