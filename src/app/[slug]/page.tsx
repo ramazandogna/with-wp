@@ -18,10 +18,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const post = await getSinglePost(params.slug);
+    const { slug } = await params;
+    const post = await getSinglePost(slug);
 
     if (!post) {
       return {
@@ -52,7 +53,7 @@ export async function generateMetadata({
         images: imageUrl ? [imageUrl] : []
       },
       alternates: {
-        canonical: `/${params.slug}`
+        canonical: `/${slug}`
       }
     };
   } catch (error) {
@@ -65,10 +66,11 @@ export async function generateMetadata({
 }
 
 // Ana sayfa component'i
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   try {
+    const { slug } = await params;
     // Post verilerini çek
-    const post = await getSinglePost(params.slug);
+    const post = await getSinglePost(slug);
 
     // Post bulunamazsa 404
     if (!post) {

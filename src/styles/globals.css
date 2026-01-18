@@ -148,6 +148,148 @@ body {
   @apply bg-background/70 text-foreground;
   background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='1' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E");
 }
+
+  /* Post Content Styling */
+  .post-content {
+    @apply text-foreground mx-auto;
+  }
+
+  .post-content::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .post-content p {
+    @apply py-4 text-base leading-relaxed;
+  }
+
+  .post-content a {
+    @apply bg-destructive/10 hover:bg-destructive/40 rounded px-1 py-0.5 transition-colors hover:underline;
+  }
+
+  /* All Lists */
+  .post-content ul,
+  .post-content ol {
+    @apply pb-4 text-base leading-relaxed;
+    padding-left: 2.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .post-content ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+  }
+
+  .post-content ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+  }
+
+  .post-content li {
+    @apply pb-2;
+    display: list-item !important;
+    margin-left: 0 !important;
+  }
+
+  /* Headings */
+  .post-content h2 {
+    @apply text-foreground mt-6 mb-2 py-4 text-2xl font-bold;
+  }
+
+  .post-content h3 {
+    @apply text-foreground mt-4 mb-2 py-4 text-xl font-bold;
+  }
+
+  .post-content h4 {
+    @apply text-foreground mt-3 mb-1 py-2 text-lg font-bold;
+  }
+
+  /* Images and Figures */
+  .post-content figure {
+    @apply my-4;
+    margin: 1rem 0 !important;
+  }
+
+  .post-content figure img {
+    @apply h-auto w-full rounded-lg;
+  }
+
+  .post-content img {
+    @apply rounded-lg;
+  }
+
+  .post-content figcaption {
+    @apply text-muted-foreground py-2 text-center text-sm italic;
+  }
+
+  /* Image Alignment */
+  .post-content .alignleft,
+  .post-content figure.alignleft,
+  .post-content .wp-block-image .alignleft {
+    float: left !important;
+    margin: 0.5rem 1.5rem 1rem 0 !important;
+    max-width: 50% !important;
+  }
+
+  .post-content .alignright,
+  .post-content figure.alignright,
+  .post-content .wp-block-image .alignright {
+    float: right !important;
+    margin: 0.5rem 0 1rem 1.5rem !important;
+    max-width: 50% !important;
+  }
+
+  .post-content .aligncenter,
+  .post-content figure.aligncenter {
+    @apply mx-auto block;
+    clear: both !important;
+  }
+
+  .post-content figure.alignleft img,
+  .post-content figure.alignright img {
+    width: auto !important;
+  }
+
+  /* Quote */
+  .post-content blockquote {
+    @apply border-primary text-muted-foreground bg-card/50 my-4 rounded border-l-4 p-4 italic;
+  }
+
+  .post-content blockquote cite {
+    @apply block mt-2 text-sm font-semibold not-italic;
+  }
+
+  /* Code */
+  .post-content code {
+    @apply bg-card text-primary rounded px-2 py-1 font-mono text-sm;
+  }
+
+  .post-content pre {
+    @apply bg-card border-border my-4 overflow-x-auto rounded-lg border p-4;
+  }
+
+  .post-content pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* WordPress Cover Block */
+  .post-content .wp-block-cover {
+    @apply my-6 overflow-hidden rounded-lg;
+    min-height: 300px !important;
+    position: relative !important;
+  }
+
+  .post-content .wp-block-cover__image-background {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .post-content .wp-block-cover__inner-container {
+    position: relative !important;
+    z-index: 10 !important;
+  }
 }
 
 
