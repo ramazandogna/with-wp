@@ -31,29 +31,67 @@ export async function generateMetadata({
       };
     }
 
-    const description = getExcerpt(post.excerpt, { raw: true });
-    const imageUrl = post.featuredImage?.node?.mediaDetails?.sizes?.at(-1)?.sourceUrl;
+    const seo = post.seo;
+    const fallbackDescription = getExcerpt(post.excerpt, { raw: true });
+    const featuredImageData = post.featuredImage?.node?.mediaDetails?.sizes?.at(-1);
+    const imageUrl = featuredImageData?.sourceUrl;
+    const imageWidth = featuredImageData?.width || 1200;
+    const imageHeight = featuredImageData?.height || 630;
+
+    // Environment'dan site URL'ı al
+    const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ramazandogna.com';
+    const authorName = post.author?.node?.name?.toLowerCase().replace(/\s+/g, '-') || 'anonymous';
+    const authorUrl = `${SITE_URL}/author/${authorName}`;
+
+    // Meta title: Yoast SEO > Post Title
+    const metaTitle = seo?.title || post.title;
+    
+    // Meta description: Yoast SEO > Excerpt fallback
+    const metaDescription = seo?.metaDesc || fallbackDescription;
+    
+    // OpenGraph title: Yoast OG Title > Meta Title > Post Title
+    const ogTitle = seo?.opengraphTitle || metaTitle;
+    
+    // OpenGraph description: Yoast OG Desc > Meta Desc > Excerpt
+    const ogDescription = seo?.opengraphDescription || metaDescription;
+    
+    // Canonical URL: Site URL + Slug (Yoast URL'sini görmezden gel)
+    const canonicalUrl = `${SITE_URL}/${slug}`;
+    
+    // Published/Modified times: Yoast > Post dates
+    const publishedTime = seo?.opengraphPublishedTime || post.date;
+    const modifiedTime = seo?.opengraphModifiedTime || post.modified;
 
     return {
-      title: post.title,
-      description,
+      title: metaTitle,
+      description: metaDescription,
       openGraph: {
-        title: post.title,
-        description,
-        images: imageUrl ? [imageUrl] : [],
+        title: ogTitle,
+        description: ogDescription,
+        url: canonicalUrl,
+        siteName: seo?.opengraphSiteName || undefined,
+        images: imageUrl ? [{
+          url: imageUrl,
+          width: imageWidth,
+          height: imageHeight,
+          alt: metaTitle
+        }] : [],
         type: 'article',
-        publishedTime: post.date,
-        modifiedTime: post.modified,
-        authors: [post.author?.node?.name || 'Anonymous']
+        publishedTime,
+        modifiedTime,
+        authors: [authorUrl]
       },
       twitter: {
         card: 'summary_large_image',
-        title: post.title,
-        description,
-        images: imageUrl ? [imageUrl] : []
+        title: ogTitle,
+        description: ogDescription,
+        images: imageUrl ? [{
+          url: imageUrl,
+          alt: metaTitle
+        }] : []
       },
       alternates: {
-        canonical: `/${slug}`
+        canonical: canonicalUrl
       }
     };
   } catch (error) {
@@ -77,24 +115,68 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       notFound();
     }
 
+    // Environment'dan site URL'ı al
+    const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ramazandogna.com';
+    const authorName = post.author?.node?.name?.toLowerCase().replace(/\s+/g, '-') || 'anonymous';
+    const authorUrl = `${SITE_URL}/author/${authorName}`;
+    const postUrl = `${SITE_URL}/${post.slug}`;
+
     // Veriyi component'e aktar
     return (
-      <div>
-        {/* 
-        Post Detail Main Section 
-        */}
-        <PostDetailMain post={post} />
-        {/* 
-        Related Posts Section
-        Not for mvp version
-        */}
-        {/* <RelatedPosts /> */}
-        {/* 
-        Post Comment Section
-        Not for mvp version
-        */}
-        {/* <PostComment /> */}
-      </div>
+      <>
+        {/* JSON-LD Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: post.seo?.title || post.title,
+              description: post.seo?.metaDesc || getExcerpt(post.excerpt, { raw: true }),
+              image: post.featuredImage?.node?.mediaDetails?.sizes?.at(-1)?.sourceUrl || '',
+              datePublished: post.seo?.opengraphPublishedTime || post.date,
+              dateModified: post.seo?.opengraphModifiedTime || post.modified,
+              author: {
+                '@type': 'Person',
+                name: post.author?.node?.name || 'Anonymous',
+                url: authorUrl
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: post.seo?.opengraphSiteName || 'CMS API',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: `${SITE_URL}/logo.png`
+                }
+              },
+              mainEntityOfPage: {
+                '@type': 'WebPage',
+                '@id': postUrl
+              },
+              ...(post.seo?.readingTime && {
+                timeRequired: `PT${post.seo.readingTime}M`
+              })
+            })
+          }}
+        />
+        
+        <div>
+          {/* 
+          Post Detail Main Section 
+          */}
+          <PostDetailMain post={post} />
+          {/* 
+          Related Posts Section
+          Not for mvp version
+          */}
+          {/* <RelatedPosts /> */}
+          {/* 
+          Post Comment Section
+          Not for mvp version
+          */}
+          {/* <PostComment /> */}
+        </div>
+      </>
     );
   } catch (error) {
     console.error('Error loading post:', error);

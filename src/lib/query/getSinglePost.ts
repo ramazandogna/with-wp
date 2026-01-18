@@ -35,6 +35,19 @@ const query = `
           name
         }
       }
+      seo {
+        title
+        metaDesc
+        opengraphTitle
+        opengraphDescription
+        opengraphUrl
+        opengraphType
+        opengraphSiteName
+        opengraphPublisher
+        opengraphPublishedTime
+        opengraphModifiedTime
+        readingTime
+      }
     }
   }
 `;

@@ -12,6 +12,21 @@ export interface SEOProps {
   keywords?: string;
 }
 
+// Yoast SEO WordPress GraphQL API'den gelen SEO verileri
+export interface YoastSEO {
+  title: string | null;
+  metaDesc: string | null;
+  opengraphTitle: string | null;
+  opengraphDescription: string | null;
+  opengraphUrl: string | null;
+  opengraphType: string | null;
+  opengraphSiteName: string | null;
+  opengraphPublisher: string | null;
+  opengraphPublishedTime: string | null;
+  opengraphModifiedTime: string | null;
+  readingTime: number | null;
+}
+
 export interface StructuredDataProps {
   title?: string;
   description?: string;

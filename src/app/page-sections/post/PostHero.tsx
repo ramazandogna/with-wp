@@ -33,9 +33,10 @@ export default function PostHero({
   author,
   commentCount,
   slug,
-  postLenght
+  postLenght,
 }: PostHeroProps) {
-  const readTime = Math.ceil(postLenght / 5 / 180); // Ortalama 180 kelime/dakika ve 5 karakter/kelime varsayımıyla
+  // Okuma süresi: Yoast SEO > Hesaplanan değer
+  const calculatedReadTime = Math.ceil(postLenght / 5 / 180); // Ortalama 180 kelime/dakika ve 5 karakter/kelime varsayımıyla
   //date format like a 9 temmuz 2025
   const dateFormat = new Date(date).toLocaleDateString('tr-TR', {
     year: 'numeric',
@@ -117,7 +118,7 @@ export default function PostHero({
             <span>
               <BookOpenCheck size={14} />
             </span>
-            <span>{readTime} dakika okuma süresi</span>
+            <span>{calculatedReadTime} dakika okuma süresi</span>
           </div>
         </div>
       </div>

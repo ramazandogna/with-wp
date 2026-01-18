@@ -2,6 +2,9 @@
 export interface GetPostSlugsParams {
   slug?: string;
 }
+
+import { YoastSEO } from './seo';
+
 // Tekil post yapısı
 export interface PostType {
   databaseId: number;
@@ -36,4 +39,5 @@ export interface PostType {
       link: string;
     }>;
   };
+  seo?: YoastSEO;
 }

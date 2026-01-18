@@ -17,7 +17,7 @@ export default async function PostDetailMain({ post }: PostDetailMainProps) {
     author: post.author?.node,
     commentCount: post.commentCount || 0,
     slug: post.slug,
-    postLenght: post.content.length
+    postLenght: post.content.length,
   };
 
   // Content için veri hazırla

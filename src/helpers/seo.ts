@@ -22,21 +22,6 @@ export function generateMetadata({
   const metadata: Metadata = {
     title: finalTitle,
     description: finalDescription,
-    keywords: keywords,
-    authors: [{ name: author }],
-    creator: author,
-    publisher: SITE.NAME,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1
-      }
-    },
     openGraph: {
       type: type,
       locale: SITE.LOCALE,
@@ -53,14 +38,6 @@ export function generateMetadata({
         }
       ]
     },
-    // twitter: {
-    //   card: SEO.TWITTER_CARD_TYPE,
-    //   title: finalTitle,
-    //   description: finalDescription,
-    //   images: [finalImage],
-    //   creator: SITE.TWITTER_HANDLE,
-    //   site: SITE.TWITTER_HANDLE
-    // },
     alternates: {
       canonical: finalUrl
     },
