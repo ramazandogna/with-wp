@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 // helpers
-import { generateMetadata } from '@/helpers/seo';
+import { generateMetadata, generateStructuredData } from '@/helpers/seo';
 // server utils
 import { getInitialTheme } from '@/lib/server-utils';
 // components
@@ -24,6 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = generateMetadata();
+const structuredData = generateStructuredData();
 
 export async function RootLayout({
   children
@@ -39,6 +40,11 @@ export async function RootLayout({
         <link rel="dns-prefetch" href="https://wp.ramazandogna.com" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ThemeProvider defaultTheme={theme}>
           {/*           
           Header

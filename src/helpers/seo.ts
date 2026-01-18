@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { SITE, SEO } from '../constants';
+import { SITE, SEO } from '../constants/seo';
 import type { SEOProps, StructuredDataProps, StructuredData } from '../types/seo';
 
 export function generateMetadata({

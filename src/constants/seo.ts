@@ -3,7 +3,7 @@ export const SITE = {
   NAME: 'WordPress Next.js Blog',
   DESCRIPTION: 'Modern WordPress headless CMS with Next.js',
   URL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  AUTHOR: 'Ramazan Doğna',
+  AUTHOR: 'Ramazan Doğan',
   KEYWORDS: 'wordpress, nextjs, headless cms, blog',
   LOCALE: 'tr-TR',
   TWITTER_HANDLE: '@ramazandogna'
