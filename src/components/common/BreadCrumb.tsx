@@ -41,7 +41,7 @@ export default function BreadCrumb({ title, categories, slug }: BreadCrumb) {
           <>
             <li>
               <Link
-                href={mainCategory.link || `/category/${mainCategory.slug}`}
+                href={`/category/${mainCategory.slug}`}
                 className="hover:text-primary transition-colors"
               >
                 {mainCategory.name}
@@ -77,7 +77,7 @@ export default function BreadCrumb({ title, categories, slug }: BreadCrumb) {
                   {categories.slice(1).map((cat) => (
                     <li key={cat.slug}>
                       <Link
-                        href={cat.link || `/category/${cat.slug}`}
+                        href={`/category/${cat.slug}`}
                         className="block px-3 py-1 hover:text-primary transition-colors"
                       >
                         {cat.name}
