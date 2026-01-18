@@ -15,10 +15,14 @@ export async function generateStaticParams() {
 }
 
 // SEO metadata oluştur
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   try {
     const post = await getSinglePost(params.slug);
-    
+
     if (!post) {
       return {
         title: 'Post Not Found',
@@ -65,7 +69,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
   try {
     // Post verilerini çek
     const post = await getSinglePost(params.slug);
-    
+
     // Post bulunamazsa 404
     if (!post) {
       notFound();
@@ -73,9 +77,22 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
     // Veriyi component'e aktar
     return (
-      <PostDetailMain 
-        post={post}
-      />
+      <div>
+        {/* 
+        Post Detail Main Section 
+        */}
+        <PostDetailMain post={post} />
+        {/* 
+        Related Posts Section
+        Not for mvp version
+        */}
+        {/* <RelatedPosts /> */}
+        {/* 
+        Post Comment Section
+        Not for mvp version
+        */}
+        {/* <PostComment /> */}
+      </div>
     );
   } catch (error) {
     console.error('Error loading post:', error);

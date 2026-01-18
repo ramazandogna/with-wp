@@ -31,14 +31,14 @@ export default function PostDetailMain({ post }: PostDetailMainProps) {
   return (
     <Container>
       <div className="bg-background/50 border-border/20 grid grid-cols-1 gap-6 rounded-lg border px-8 py-8 shadow-lg backdrop-blur-lg">
+        {/* 
+        Post Hero Sectoion 
+        */}
         <PostHero {...heroData} />
+        {/* 
+        Post Related Posts Section 
+        */}
         <PostContent {...contentData} />
-        {/* <RelatedPosts /> 
-      Not for mvp version
-      */}
-        {/* <PostComment />
-      not for mvp version
-      */}
       </div>
     </Container>
   );
