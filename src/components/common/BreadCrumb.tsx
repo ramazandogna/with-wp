@@ -13,6 +13,8 @@ type BreadCrumb = {
   slug?: string;
 };
 
+
+
 export default function BreadCrumb({ title, categories, slug }: BreadCrumb) {
   const [open, setOpen] = useState(false);
 
@@ -62,7 +64,7 @@ export default function BreadCrumb({ title, categories, slug }: BreadCrumb) {
               >
                 <span>
                   <Link
-                    href={mainCategory.link || `/category/${mainCategory.slug}`}
+                    href={`/category/${mainCategory.slug}`}
                     className="hover:text-primary transition-colors"
                   >
                     {mainCategory.name}

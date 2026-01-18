@@ -1,15 +1,13 @@
 import PostHero from './PostHero';
 import PostContent from './PostContent';
-import RelatedPosts from './RelatedPosts';
 import { PostType } from '@/types';
-import { Card } from '@/components/ui';
 import { Container } from '@/components/common';
 
 type PostDetailMainProps = {
   post: PostType;
 };
 
-export default function PostDetailMain({ post }: PostDetailMainProps) {
+export default async function PostDetailMain({ post }: PostDetailMainProps) {
   // Hero için veri hazırla
   const heroData = {
     title: post.title,
@@ -24,15 +22,14 @@ export default function PostDetailMain({ post }: PostDetailMainProps) {
 
   // Content için veri hazırla
   const contentData = {
-    content: post.content,
-    title: post.title
+    content: post.content
   };
 
   return (
     <Container>
       <div className="bg-background/50 border-border/20 grid grid-cols-1 gap-6 rounded-lg border px-8 py-8 shadow-lg backdrop-blur-lg">
         {/* 
-        Post Hero Sectoion 
+        Post Hero Section 
         */}
         <PostHero {...heroData} />
         {/* 

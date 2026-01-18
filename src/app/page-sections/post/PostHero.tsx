@@ -92,8 +92,8 @@ export default function PostHero({
         )}
       </div> */}
       <div className="text-muted-foreground flex items-center justify-between text-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center gap-4 max-sm:flex-col max-sm:items-start">
+          <div className="flex items-center gap-1 ">
             <span>
               <UserPen size={14} />
             </span>
@@ -106,14 +106,14 @@ export default function PostHero({
             <span>{dateFormat}</span>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center gap-4 max-sm:flex-col max-sm:items-start">
+          <div className="flex items-center gap-1 cursor-not-allowed">
             <span>
               <MessageSquareText size={14} />
             </span>
             <span>{commentCount}</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 max-sm:justify-start">
             <span>
               <BookOpenCheck size={14} />
             </span>

@@ -19,7 +19,7 @@
   font-weight: 500;
 }
 
-.header-padding{
+.header-padding {
   padding-top: 140px;
 }
 
@@ -144,10 +144,10 @@
     height: 100%;
     min-height: 100vh;
   }
-body {
-  @apply bg-background/70 text-foreground;
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='1' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E");
-}
+  body {
+    @apply bg-background/70 text-foreground;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='3' cy='3' r='1' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E");
+  }
 
   /* Post Content Styling */
   .post-content {
@@ -155,7 +155,7 @@ body {
   }
 
   .post-content::after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -194,15 +194,15 @@ body {
 
   /* Headings */
   .post-content h2 {
-    @apply text-foreground mt-6 mb-2 py-4 text-2xl font-bold;
+    @apply text-foreground py-4 text-2xl font-bold;
   }
 
   .post-content h3 {
-    @apply text-foreground mt-4 mb-2 py-4 text-xl font-bold;
+    @apply text-foreground py-4 text-xl font-bold;
   }
 
   .post-content h4 {
-    @apply text-foreground mt-3 mb-1 py-2 text-lg font-bold;
+    @apply text-foreground py-2 text-lg font-bold;
   }
 
   /* Images and Figures */
@@ -257,7 +257,7 @@ body {
   }
 
   .post-content blockquote cite {
-    @apply block mt-2 text-sm font-semibold not-italic;
+    @apply mt-2 block text-sm font-semibold not-italic;
   }
 
   /* Code */
@@ -291,5 +291,3 @@ body {
     z-index: 10 !important;
   }
 }
-
-
