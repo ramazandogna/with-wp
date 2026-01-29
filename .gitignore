@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Local prompt dosyaları
 .github/prompts/
+
+
+# docs
+*-development.md
