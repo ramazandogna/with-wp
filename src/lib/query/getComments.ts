@@ -1,6 +1,11 @@
 import graphqlRequest from '../graphqlRequest';
 import { PostComments, GetCommentsParams } from '../../types';
+import { CACHE } from '../cache';
 
+/**
+ * Fetch post comments
+ * No cache - comments should always be fresh
+ */
 export async function getComments({
   slug,
   startCursor = ''
@@ -37,6 +42,6 @@ export async function getComments({
     before: startCursor || null
   };
 
-  const resJson = await graphqlRequest<{ post: PostComments }>(query, variables);
+  const resJson = await graphqlRequest<{ post: PostComments }>(query, variables, CACHE.DYNAMIC);
   return resJson.data!.post;
 }
