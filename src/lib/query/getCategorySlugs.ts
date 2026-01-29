@@ -1,6 +1,10 @@
 import graphqlRequest from '../graphqlRequest';
 import { GetCategorySlugsParams } from '../../types';
+import { CACHE } from '../cache';
 
+/**
+ * Get category slugs for static generation
+ */
 export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): Promise<
   { slug: string }[] | null
 > {
@@ -12,9 +16,11 @@ export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): P
         }
       }
     `;
-    const resJson = await graphqlRequest<{ category: { slug: string } | null }>(singleQuery, {
-      name
-    });
+    const resJson = await graphqlRequest<{ category: { slug: string } | null }>(
+      singleQuery,
+      { name },
+      CACHE.category(name)
+    );
     if (!resJson?.data?.category) return null;
     return [{ slug: resJson.data.category.slug }];
   }
@@ -28,7 +34,11 @@ export async function getCategorySlugs({ name }: GetCategorySlugsParams = {}): P
       }
     }
   `;
-  const resJson = await graphqlRequest<{ categories: { nodes: { slug: string }[] } }>(allQuery);
+  const resJson = await graphqlRequest<{ categories: { nodes: { slug: string }[] } }>(
+    allQuery,
+    undefined,
+    CACHE.CATEGORY_SLUGS
+  );
   if (!resJson?.data?.categories?.nodes) return null;
   return resJson.data.categories.nodes;
 }

@@ -1,9 +1,11 @@
 import graphqlRequest from '../graphqlRequest';
 import { GetPostSlugsParams } from '../../types';
+import { CACHE } from '../cache';
 
 /**
- * Eğer slug parametresi verilirse o slug'a ait postun gerçekten var olup olmadığını döner.
- * Verilmezse tüm slug'ları döner (generateStaticParams için).
+ * Get post slugs for static generation
+ * If slug provided: validates if post exists
+ * If no slug: returns all slugs for generateStaticParams
  */
 export async function getPostSlugs({ slug }: GetPostSlugsParams = {}): Promise<
   { slug: string }[] | null
@@ -16,7 +18,11 @@ export async function getPostSlugs({ slug }: GetPostSlugsParams = {}): Promise<
         }
       }
     `;
-    const resJson = await graphqlRequest<{ post: { slug: string } | null }>(singleQuery, { slug });
+    const resJson = await graphqlRequest<{ post: { slug: string } | null }>(
+      singleQuery,
+      { slug },
+      CACHE.post(slug)
+    );
 
     if (!resJson?.data?.post) return null;
     return [{ slug: resJson.data.post.slug }];
@@ -32,7 +38,11 @@ export async function getPostSlugs({ slug }: GetPostSlugsParams = {}): Promise<
     }
   `;
 
-  const resJson = await graphqlRequest<{ posts: { nodes: { slug: string }[] } }>(allQuery);
+  const resJson = await graphqlRequest<{ posts: { nodes: { slug: string }[] } }>(
+    allQuery,
+    undefined,
+    CACHE.POST_SLUGS
+  );
 
   if (!resJson?.data?.posts?.nodes) return null;
   return resJson.data.posts.nodes;
