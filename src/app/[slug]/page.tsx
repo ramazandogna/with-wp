@@ -105,15 +105,15 @@ export async function generateMetadata({
 
 // Ana sayfa component'i
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  try {
-    const { slug } = await params;
-    // Post verilerini çek
-    const post = await getSinglePost(slug);
+  const { slug } = await params;
+  
+  // Post verilerini çek
+  const post = await getSinglePost(slug);
 
-    // Post bulunamazsa 404
-    if (!post) {
-      notFound();
-    }
+  // Post bulunamazsa 404
+  if (!post) {
+    notFound();
+  }
 
     // Environment'dan site URL'ı al
     const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ramazandogna.com';
@@ -178,8 +178,4 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       </>
     );
-  } catch (error) {
-    console.error('Error loading post:', error);
-    notFound();
-  }
 }
