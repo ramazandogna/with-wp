@@ -2,7 +2,7 @@
 //next
 import Link from 'next/link';
 //react
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 //components
 import { Container } from '@/components/common';
 import { Button } from '@/components/ui';
@@ -12,34 +12,30 @@ import { LucideSparkles, MenuIcon, Sun, SunMoon } from 'lucide-react';
 import { useTheme } from '@/hooks/use.theme';
 
 export function Header() {
-  //states
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  // Open Menu
-  const openMenu = () => {
+  const openMenu = useCallback(() => {
     setIsMenuVisible(true);
     setTimeout(() => setIsMenuOpen(true), 300);
     document.body.style.overflow = 'hidden';
     document.body.style.touchAction = 'none';
-  };
+  }, []);
 
-  // Close Menu
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
     setTimeout(() => setIsMenuVisible(false), 300);
     document.body.style.overflow = 'auto';
     document.body.style.touchAction = 'auto';
-  };
+  }, []);
 
-  // Toggle Menu
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     if (isMenuOpen) {
       closeMenu();
     } else {
       openMenu();
     }
-  };
+  }, [isMenuOpen, closeMenu, openMenu]);
 
   const { toggleTheme, theme } = useTheme();
   return (

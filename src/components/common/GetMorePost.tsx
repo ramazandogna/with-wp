@@ -1,9 +1,12 @@
 'use client';
-import { useState } from 'react';
-import type { PostResponse } from '@/types/posts';
+//react
+import { memo, useState, useCallback } from 'react';
+//components
 import { Button } from '@/components/ui';
+//types
+import type { PostResponse } from '@/types/posts';
 
-export function GetMorePost({
+export const GetMorePost = memo(function GetMorePost({
   contents,
   setContents,
   taxonomy
@@ -15,11 +18,7 @@ export function GetMorePost({
   const [postsLoading, setPostsLoading] = useState(false);
   const [noMorePost, setNoMorePost] = useState(false);
 
-  /**
-   * @usage Fetch more posts and update the state
-   * @returns void
-   */
-  const getMorePost = async () => {
+  const getMorePost = useCallback(async () => {
     if (postsLoading || noMorePost) return;
     setPostsLoading(true);
 
@@ -39,13 +38,12 @@ export function GetMorePost({
         nodes: [...contents.nodes, ...morePost.nodes]
       };
 
-      // State'i hemen güncelle
       setContents(updatePosts);
       setNoMorePost(!morePost.pageInfo.hasNextPage);
     } finally {
       setPostsLoading(false);
     }
-  };
+  }, [contents.pageInfo.endCursor, contents.nodes, taxonomy, setContents, postsLoading, noMorePost]);
 
   return (
     <Button
@@ -58,4 +56,4 @@ export function GetMorePost({
       {noMorePost ? 'Daha Fazla Yazı Yok' : 'Daha Fazla Getir'}
     </Button>
   );
-}
+});

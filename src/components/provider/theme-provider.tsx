@@ -1,21 +1,16 @@
 'use client';
 //react
-import { createContext, useState } from 'react';
+import { createContext, useState, useCallback, useMemo } from 'react';
 
-
-// Theme type and context value
 type Theme = 'light' | 'dark';
 
-// Theme Context types
 interface ThemeContextValue {
   theme: Theme;
   toggleTheme: () => void;
 }
 
-// Context
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-// Provider
 export function ThemeProvider({
   children,
   defaultTheme
@@ -25,11 +20,9 @@ export function ThemeProvider({
 }) {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
 
-  // Toggle theme function with class update and server sync
-  const toggleTheme = async () => {
+  const toggleTheme = useCallback(async () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    // document.documentElement.setAttribute('data-theme', newTheme);
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(newTheme);
     await fetch('/api/theme', {
@@ -37,7 +30,12 @@ export function ThemeProvider({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ theme: newTheme })
     });
-  };
+  }, [theme]);
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  const contextValue = useMemo(
+    () => ({ theme, toggleTheme }),
+    [theme, toggleTheme]
+  );
+
+  return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>;
 }

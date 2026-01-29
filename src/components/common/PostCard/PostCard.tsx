@@ -1,3 +1,5 @@
+//react
+import { memo } from 'react';
 //next
 import Image from 'next/image';
 //components
@@ -18,7 +20,7 @@ type PostCardProps = {
   className?: string;
 };
 
-export function PostCard({
+export const PostCard = memo(function PostCard({
   title,
   excerpt,
   image,
@@ -92,4 +94,4 @@ export function PostCard({
       </div>
     </Card>
   );
-}
+});
