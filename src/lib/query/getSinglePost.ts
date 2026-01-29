@@ -1,5 +1,7 @@
+import { cache } from 'react';
 import { PostType } from '../../types';
 import graphqlRequest from '../graphqlRequest';
+import { CACHE } from '../cache';
 
 const query = `
   query getSinglePost($slug: ID!) {
@@ -52,7 +54,12 @@ const query = `
   }
 `;
 
-export async function getSinglePost(slug: string): Promise<PostType> {
-  const resJson = await graphqlRequest<{ post: PostType }>(query, { slug });
+/**
+ * Fetch single post by slug
+ * Wrapped with React cache() for request deduplication within same render
+ * (generateMetadata + PostPage = 1 request instead of 2)
+ */
+export const getSinglePost = cache(async (slug: string): Promise<PostType> => {
+  const resJson = await graphqlRequest<{ post: PostType }>(query, { slug }, CACHE.post(slug));
   return resJson.data!.post;
-}
+});
