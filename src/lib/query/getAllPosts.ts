@@ -1,12 +1,14 @@
 import { PostResponse, GetAllPostsParams } from '../../types';
 import graphqlRequest from '../graphqlRequest';
+import { CacheOptions, CACHE } from '../cache';
 
 export async function getAllPosts({
   endCursor = '',
   taxonomy = null,
   howMany = 5,
-  search = null
-}: GetAllPostsParams = {}): Promise<PostResponse> {
+  search = null,
+  cacheOptions
+}: GetAllPostsParams & { cacheOptions?: CacheOptions } = {}): Promise<PostResponse> {
   const query = `
     query getAllPosts(
       $endCursor: String
@@ -83,7 +85,14 @@ export async function getAllPosts({
     variables.tag = taxonomy.value;
   }
 
-  const resJson = await graphqlRequest<{ posts: PostResponse }>(query, variables);
+  // Use DYNAMIC for search (fresh results), POSTS for listings
+  const defaultCache = search ? CACHE.DYNAMIC : CACHE.POSTS;
+
+  const resJson = await graphqlRequest<{ posts: PostResponse }>(
+    query,
+    variables,
+    cacheOptions ?? defaultCache
+  );
 
   // Hata kontrolü
   if (!resJson?.data?.posts) {

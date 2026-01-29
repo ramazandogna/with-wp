@@ -1,6 +1,11 @@
 import { PostResponse, GetRelatedPostsParams } from '../../types';
 import graphqlRequest from '../graphqlRequest';
+import { CACHE } from '../cache';
 
+/**
+ * Fetch related posts by category
+ * Cached for 1 hour, tagged for on-demand revalidation
+ */
 export async function getRelatedPosts({
   endCursor = '',
   categorySlugs,
@@ -59,6 +64,6 @@ export async function getRelatedPosts({
     exclude: [excludeSlug]
   };
 
-  const resJson = await graphqlRequest<{ posts: PostResponse }>(query, variables);
+  const resJson = await graphqlRequest<{ posts: PostResponse }>(query, variables, CACHE.RELATED_POSTS);
   return resJson.data!.posts;
 }
