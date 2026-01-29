@@ -45,19 +45,19 @@ export async function generateMetadata({
 
     // Meta title: Yoast SEO > Post Title
     const metaTitle = seo?.title || post.title;
-    
+
     // Meta description: Yoast SEO > Excerpt fallback
     const metaDescription = seo?.metaDesc || fallbackDescription;
-    
+
     // OpenGraph title: Yoast OG Title > Meta Title > Post Title
     const ogTitle = seo?.opengraphTitle || metaTitle;
-    
+
     // OpenGraph description: Yoast OG Desc > Meta Desc > Excerpt
     const ogDescription = seo?.opengraphDescription || metaDescription;
-    
+
     // Canonical URL: Site URL + Slug (Yoast URL'sini görmezden gel)
     const canonicalUrl = `${SITE_URL}/${slug}`;
-    
+
     // Published/Modified times: Yoast > Post dates
     const publishedTime = seo?.opengraphPublishedTime || post.date;
     const modifiedTime = seo?.opengraphModifiedTime || post.modified;
@@ -70,12 +70,16 @@ export async function generateMetadata({
         description: ogDescription,
         url: canonicalUrl,
         siteName: seo?.opengraphSiteName || undefined,
-        images: imageUrl ? [{
-          url: imageUrl,
-          width: imageWidth,
-          height: imageHeight,
-          alt: metaTitle
-        }] : [],
+        images: imageUrl
+          ? [
+              {
+                url: imageUrl,
+                width: imageWidth,
+                height: imageHeight,
+                alt: metaTitle
+              }
+            ]
+          : [],
         type: 'article',
         publishedTime,
         modifiedTime,
@@ -85,10 +89,14 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: ogTitle,
         description: ogDescription,
-        images: imageUrl ? [{
-          url: imageUrl,
-          alt: metaTitle
-        }] : []
+        images: imageUrl
+          ? [
+              {
+                url: imageUrl,
+                alt: metaTitle
+              }
+            ]
+          : []
       },
       alternates: {
         canonical: canonicalUrl
@@ -106,7 +114,7 @@ export async function generateMetadata({
 // Ana sayfa component'i
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
+
   // Post verilerini çek
   const post = await getSinglePost(slug);
 
@@ -115,67 +123,67 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
-    // Environment'dan site URL'ı al
-    const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ramazandogna.com';
-    const authorName = post.author?.node?.name?.toLowerCase().replace(/\s+/g, '-') || 'anonymous';
-    const authorUrl = `${SITE_URL}/author/${authorName}`;
-    const postUrl = `${SITE_URL}/${post.slug}`;
+  // Environment'dan site URL'ı al
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://ramazandogna.com';
+  const authorName = post.author?.node?.name?.toLowerCase().replace(/\s+/g, '-') || 'anonymous';
+  const authorUrl = `${SITE_URL}/author/${authorName}`;
+  const postUrl = `${SITE_URL}/${post.slug}`;
 
-    // Veriyi component'e aktar
-    return (
-      <>
-        {/* JSON-LD Structured Data for SEO */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'BlogPosting',
-              headline: post.seo?.title || post.title,
-              description: post.seo?.metaDesc || getExcerpt(post.excerpt, { raw: true }),
-              image: post.featuredImage?.node?.mediaDetails?.sizes?.at(-1)?.sourceUrl || '',
-              datePublished: post.seo?.opengraphPublishedTime || post.date,
-              dateModified: post.seo?.opengraphModifiedTime || post.modified,
-              author: {
-                '@type': 'Person',
-                name: post.author?.node?.name || 'Anonymous',
-                url: authorUrl
-              },
-              publisher: {
-                '@type': 'Organization',
-                name: post.seo?.opengraphSiteName || 'CMS API',
-                logo: {
-                  '@type': 'ImageObject',
-                  url: `${SITE_URL}/logo.png`
-                }
-              },
-              mainEntityOfPage: {
-                '@type': 'WebPage',
-                '@id': postUrl
-              },
-              ...(post.seo?.readingTime && {
-                timeRequired: `PT${post.seo.readingTime}M`
-              })
+  // Veriyi component'e aktar
+  return (
+    <>
+      {/* JSON-LD Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.seo?.title || post.title,
+            description: post.seo?.metaDesc || getExcerpt(post.excerpt, { raw: true }),
+            image: post.featuredImage?.node?.mediaDetails?.sizes?.at(-1)?.sourceUrl || '',
+            datePublished: post.seo?.opengraphPublishedTime || post.date,
+            dateModified: post.seo?.opengraphModifiedTime || post.modified,
+            author: {
+              '@type': 'Person',
+              name: post.author?.node?.name || 'Anonymous',
+              url: authorUrl
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: post.seo?.opengraphSiteName || 'CMS API',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${SITE_URL}/logo.png`
+              }
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': postUrl
+            },
+            ...(post.seo?.readingTime && {
+              timeRequired: `PT${post.seo.readingTime}M`
             })
-          }}
-        />
-        
-        <div>
-          {/* 
+          })
+        }}
+      />
+
+      <div>
+        {/* 
           Post Detail Main Section 
           */}
-          <PostDetailMain post={post} />
-          {/* 
+        <PostDetailMain post={post} />
+        {/* 
           Related Posts Section
           Not for mvp version
           */}
-          {/* <RelatedPosts /> */}
-          {/* 
+        {/* <RelatedPosts /> */}
+        {/* 
           Post Comment Section
           Not for mvp version
           */}
-          {/* <PostComment /> */}
-        </div>
-      </>
-    );
+        {/* <PostComment /> */}
+      </div>
+    </>
+  );
 }
